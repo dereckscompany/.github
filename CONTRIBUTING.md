@@ -10,21 +10,30 @@ Thanks for your interest in contributing to a Dereck's Company project. This is 
 ## Pull requests
 
 - Open the description with a short, **plain-English paragraph** explaining what the change does and why, before any technical detail.
-- Keep markdown prose to one line per paragraph/bullet — no manual hard-wrapping.
 - Make sure the tests and the formatter pass before requesting review.
 - Report security issues **privately** to the maintainer; please don't open a public issue for them.
 
-## Conventions
+## Conventions and lessons
 
-Our living conventions and lessons are kept in the org Discussions board ("Conventions & Lessons") — please skim it; new code is expected to follow it. For example: throw **typed conditions** (classed `rlang::abort(...)`) rather than bare error strings, so callers can react by type.
+We keep our living conventions and the lessons we've learned in the org Discussions board — please skim the **Conventions & Lessons** category before contributing, and follow what's there:
 
-## R packages
+https://github.com/orgs/dereckscompany/discussions
 
-Most of our R packages share one toolchain, scaffolded from `templates-cookiecutter` and kept in sync with cruft:
+## Working with our R packages
+
+Most of our R packages share one toolchain. Before you start:
 
 - Install dependencies with renv: `renv::restore()`.
-- Format before committing: `./scripts/FORMAT.sh` (air for R, jq for JSON) — don't hand-format.
-- Lint with `./scripts/LINT.sh`; run tests with `./scripts/TEST.R`.
-- Type every `@param` and `@return` with roxyassert grammar (not prose), then regenerate docs and contracts with `devtools::document()`.
+- Look in the `scripts/` folder and run them before you commit: `./scripts/FORMAT.sh` (formatting), `./scripts/LINT.sh` (linting), and `./scripts/TEST.R` (tests). Don't hand-format.
+- We type our function inputs and outputs with **roxyassert** (built on **assert**) — please use them when you add or change a function:
+  - https://github.com/dereckscompany/roxyassert
+  - https://github.com/dereckscompany/assert
 - Test fixtures must be **synthetic or scrubbed** — never commit real account data, balances, or API keys.
-- Project-level files (scripts, lint config, CI) are managed by the cookiecutter template — change the template, not the generated copy.
+
+## Using our packages, and reporting problems
+
+Our exchange and data packages are delivered **as is** (see DISCLAIMER.md), and we'd genuinely love for you to use and test them. If you hit a bug:
+
+1. Capture the raw API response (or the exact error) you got.
+2. Open a GitHub issue on that package and **paste the content in** — the more raw detail, the faster we can diagnose and fix it.
+3. Even better, if you can see the fix, open a pull request. We welcome them.
